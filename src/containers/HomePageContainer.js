@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 
 class HomePageContainer extends Component {
   render () {
-    const { age } = this.props
-    return <HomePage {...{ age }} />
+    const { playlist } = this.props
+
+    return <HomePage {...{ playlist }} />
   }
 }
 
 const mapStateToProps = state => ({
-  age: state.age,
+  playlist: state.playlist,
 })
 
 const mapDispatchToProps = dispatch => ({

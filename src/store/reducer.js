@@ -1,5 +1,11 @@
+import {
+  page1,
+  page2,
+  page3,
+} from '../services/api'
+
 const initialState = {
-	age: 21,
+	playlist: page1,
 }
 
 const reducer = (state = initialState, action) => {

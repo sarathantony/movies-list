@@ -1,9 +1,11 @@
 import React from 'react'
 
-const HomePage = ({ age }) => {
+const HomePage = ({ playlist }) => {
+  const { page: { [`content-items`]: { content } } } = playlist
+
   return (
     <div>
-      <p>{`Hello, my age is ${age}`}</p>
+      {content && content.map(item => <div><img src={require(`../../assets/${item[`poster-image`]}`)} /></div>)}
     </div>
   )
 }
