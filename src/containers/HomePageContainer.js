@@ -21,8 +21,15 @@ class HomePageContainer extends Component {
     }))
   }
 
-  handleFilter = () => {
+  handleFilter = (e) => {
+    e.preventDefault()
+    const pattern = e.target.value
+    const { data: { page: { [`content-items`]: { content } } } } = this.props
 
+    this.setState(prevState => ({
+      ...prevState,
+      playlist: content.filter(item => item.name.toLowerCase().includes(pattern.toLowerCase())),
+    }))
   }
 
   render () {

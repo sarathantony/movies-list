@@ -9,11 +9,14 @@ const Movie = ({ item }) => {
   )
 }
 
-const HomePage = ({ playlist, title }) => {
+const HomePage = ({ playlist, title, handleFilter }) => {
 
   return (
     <div>
       <h1>{title}</h1>
+      <form>
+        <input name="name" onChange={handleFilter} />
+      </form>
       {playlist && playlist.map((item, index) => <Movie key={index} {...{ item, title }} />)}
     </div>
   )
