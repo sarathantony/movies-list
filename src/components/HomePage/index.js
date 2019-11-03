@@ -1,11 +1,20 @@
 import React from 'react'
 
-const HomePage = ({ playlist }) => {
-  const { page: { [`content-items`]: { content } } } = playlist
+const Movie = ({ item }) => {
+  return (
+    <div>
+      <img src={require(`../../assets/${item[`poster-image`]}`)} />
+      <p>{item.name}</p>
+    </div>
+  )
+}
+
+const HomePage = ({ playlist, title }) => {
 
   return (
     <div>
-      {content && content.map(item => <div><img src={require(`../../assets/${item[`poster-image`]}`)} /></div>)}
+      <h1>{title}</h1>
+      {playlist && playlist.map((item, index) => <Movie key={index} {...{ item, title }} />)}
     </div>
   )
 }

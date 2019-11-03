@@ -3,15 +3,38 @@ import HomePage from '../components/HomePage'
 import { connect } from 'react-redux'
 
 class HomePageContainer extends Component {
-  render () {
-    const { playlist } = this.props
+  constructor(props) {
+    super(props)
+    this.state = {
+      playlist: [],
+      title: '',
+    }
+  }
 
-    return <HomePage {...{ playlist }} />
+  componentWillMount() {
+    const { data: { page: { title, [`content-items`]: { content } } } } = this.props
+
+    this.setState(prevState => ({
+      ...prevState,
+      playlist: content,
+      title,
+    }))
+  }
+
+  handleFilter = () => {
+
+  }
+
+  render () {
+    const { playlist, title } = this.state
+    const { handleFilter } = this
+
+    return <HomePage {...{ playlist, title, handleFilter }} />
   }
 }
 
 const mapStateToProps = state => ({
-  playlist: state.playlist,
+  data: state.playlist,
 })
 
 const mapDispatchToProps = dispatch => ({
