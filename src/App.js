@@ -1,10 +1,10 @@
 import React from 'react';
-import './App.css';
+import './index';
 import HomePageContainer from './containers/HomePageContainer'
 
 function App() {
   return (
-    <div className="App">
+    <div className="bg-black">
         <HomePageContainer />
     </div>
   );
