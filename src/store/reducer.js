@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
 		case 'GET_PAGE':
 			return {
 				...newState,
-				age: 3,
+				playlist: [...newState.playlist, `page${payload}`],
 			}
 		default:
 			return newState

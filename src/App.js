@@ -4,7 +4,7 @@ import HomePageContainer from './containers/HomePageContainer'
 
 function App() {
   return (
-    <div className="bg-black">
+    <div className="container">
         <HomePageContainer />
     </div>
   );

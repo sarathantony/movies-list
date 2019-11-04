@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import HomePage from '../components/HomePage'
 import { connect } from 'react-redux'
+import { getPage } from '../store/actions'
 
 class HomePageContainer extends Component {
   constructor(props) {
@@ -26,6 +27,9 @@ class HomePageContainer extends Component {
     const pattern = e.target.value
     const { data: { page: { [`content-items`]: { content } } } } = this.props
 
+    /**
+     * filter the immutable object hence it won't effect the local state object. 
+     */
     this.setState(prevState => ({
       ...prevState,
       playlist: content.filter(item => item.name.toLowerCase().includes(pattern.toLowerCase())),
@@ -45,7 +49,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+  nextPage: pageNumber => dispatch(getPage(pageNumber)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePageContainer)
