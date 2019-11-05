@@ -13,7 +13,7 @@ const Movie = ({ item }) => {
 const HomePage = ({ playlist, title, handleFilter }) => {
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative" id="root">
       <div className="flex fixed bg-fixed h-48 w-full" style={{ backgroundImage: `url(${require('../../assets/nav_bar.png')})` }}>
         <div className="w-1/12 absolute">
           <img src={require('../../assets/Back.png')} alt="" width="30%" />
@@ -28,7 +28,7 @@ const HomePage = ({ playlist, title, handleFilter }) => {
           <img src={require('../../assets/search.png')} alt="" width="30%" />
         </div>
       </div>
-      <div className="flex flex-wrap px-2">
+      <div className="flex flex-wrap px-2" id="showScroll">
         {playlist && playlist.map((item, index) => <div className="w-1/3 flex-none" key={index}><Movie {...{ item, title }} /></div>)}
       </div>
     </div>

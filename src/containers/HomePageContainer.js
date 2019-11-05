@@ -9,6 +9,7 @@ class HomePageContainer extends Component {
     this.state = {
       playlist: [],
       title: '',
+      page: 1,
     }
   }
 
@@ -20,6 +21,39 @@ class HomePageContainer extends Component {
       playlist: content,
       title,
     }))
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { data: { page: { title, [`content-items`]: { content } } } } = nextProps
+
+    if (nextProps.data.page[`page-num-requested`] !== this.props.data.page[`page-num-requested`]) {
+      this.setState(prevState => ({
+        ...prevState,
+        playlist: content,
+        title,
+      }))
+    }
+
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.trackScrolling)
+  }
+
+  trackScrolling = (e) => {
+    const { data: { page } } = this.props
+    const { playlist } = this.state
+    const yOffset = Math.ceil(window.pageYOffset + window.innerHeight)
+    const docHeight = document.getElementById('root').clientHeight
+
+
+    if ((yOffset >= docHeight) && (playlist.length <= page[`total-content-items`])) {
+      this.props.nextPage(`page` + (Number(this.state.page) + 1))
+
+      this.setState(prevState => ({
+        page: prevState.page + 1,
+      }))
+    }
   }
 
   handleFilter = (e) => {
@@ -46,6 +80,7 @@ class HomePageContainer extends Component {
 
 const mapStateToProps = state => ({
   data: state.playlist,
+  currentPage: state.playlist.page[`page-num-requested`] || null,
 })
 
 const mapDispatchToProps = dispatch => ({
