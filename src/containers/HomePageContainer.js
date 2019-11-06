@@ -33,11 +33,14 @@ class HomePageContainer extends Component {
         title,
       }))
     }
-
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.trackScrolling)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.trackScrolling)
   }
 
   trackScrolling = (e) => {
@@ -46,8 +49,7 @@ class HomePageContainer extends Component {
     const yOffset = Math.ceil(window.pageYOffset + window.innerHeight)
     const docHeight = document.getElementById('root').clientHeight
 
-
-    if ((yOffset >= docHeight) && (playlist.length <= page[`total-content-items`])) {
+    if ((yOffset >= docHeight) && (playlist.length < page[`total-content-items`])) {
       this.props.nextPage(`page` + (Number(this.state.page) + 1))
 
       this.setState(prevState => ({
@@ -57,12 +59,13 @@ class HomePageContainer extends Component {
   }
 
   handleFilter = (e) => {
-    e.preventDefault()
     const pattern = e.target.value
     const { data: { page: { [`content-items`]: { content } } } } = this.props
 
+    e.preventDefault()
+
     /**
-     * filter the immutable object hence it won't effect the local state object. 
+     * filter the immutable object so it won't effect the local state object. 
      */
     this.setState(prevState => ({
       ...prevState,
