@@ -17,19 +17,21 @@ const Movie = ({ item }) => {
 const HomePage = ({ playlist, title, handleFilter }) => {
 
   return (
-    <div className="w-full pt-48" id="root">
+    <div className="w-full pt-48 overflow-auto" id="root">
       <div className="flex items-center fixed top-0 bg-fixed h-38 w-full align-middle" style={{ backgroundImage: `url(${require('../../assets/nav_bar.png')})` }}>
         <div className="w-1/12">
-          <img src={require('../../assets/Back.png')} alt="" width="30%" />
+          <div>
+            <img className="ml-5 sm:w-6 md:w-2/4 lg:w-10" src={require('../../assets/Back.png')} alt="" width="50%" />
+          </div>
         </div>
-        <div className="w-10/12">
-          <h1 className="flex w-full text-white" >{title}</h1>
+        <div className="w-6/12">
+          <h1 className="flex w-full text-white text-2xl sm:text-2xl md:text-3xl ml-3 lg:text-4xl" >{title}</h1>
         </div>
-        <form>
-          <input name="name" onChange={handleFilter} />
+        <form className="w-4/12">
+          <input className="w-full h-1 mr-5 bg-black border border-blue-500 rounded text-white sm:h-8 md:w-full h-6 lg:w-full h-full" name="name" onChange={handleFilter} />
         </form>
         <div className="w-1/12">
-          <img src={require('../../assets/search.png')} alt="" width="30%" />
+          <img className="ml-5 w-6 mr-1 sm:w-6 mr-5 md:w-8 lg:w-10" src={require('../../assets/search.png')} alt="" />
         </div>
       </div>
 
