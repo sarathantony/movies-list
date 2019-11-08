@@ -1,13 +1,12 @@
 import React from 'react'
 import { resolveImagePath } from '../../services/utils'
 
-
 const Movie = ({ item }) => {
   return (
-    <div className=" mx-2 pb-23">
+    <div className={styles.posterBox}>
       <img src={resolveImagePath(item)} alt="" width="100%" />
       <div className="mt-6">
-        <p className="text-white sm:text-1xl md:text-2xl lg:text-3xl">{item.name}</p>
+        <p className={styles.posterName}>{item.name}</p>
       </div>
     </div>
   )
@@ -16,24 +15,24 @@ const Movie = ({ item }) => {
 
 const HomePage = ({ playlist, title, handleFilter }) => {
   return (
-    <div className="w-full pt-48 overflow-auto" id="rootContainer">
-      <div className="flex items-center fixed top-0 bg-fixed h-38 w-full align-middle" style={{ backgroundImage: `url(${require('../../assets/nav_bar.png')})` }}>
+    <div className={styles.rootContainer} id="rootContainer">
+      <div className={styles.header} style={{ backgroundImage: `url(${require('../../assets/nav_bar.png')})` }}>
         <div className="w-1/12">
           <div>
-            <img className="ml-5 sm:w-6 md:w-2/4 lg:w-10" src={require('../../assets/Back.png')} alt="" width="50%" />
+            <img className={styles.backIcon} src={require('../../assets/Back.png')} alt="" width="50%" />
           </div>
         </div>
         <div className="w-5/12">
-          <p className="flex w-full text-white text-2xl sm:text-2xl md:text-3xl ml-3 lg:text-4xl" >{title}</p>
+          <p className={styles.headerTitle} >{title}</p>
         </div>
         <div className="w-6/12">
           <form onSubmit={e => e.preventDefault()}>
             <div className="flex">
               <div className="flex w-9/12">
-                <input className="h-1 bg-black border border-gray-700 rounded text-white sm:h-8 w-3/4 ml-10 md:w-full h-6 lg:w-full h-full" name="name" onChange={handleFilter} />
+                <input className={styles.input} name="name" onChange={handleFilter} />
               </div>
-              <div className="flex justify-start w-3/12 md:flex justify-center">
-                <img className="w-6 md:w-10 lg:w-10 flex justify-start" src={require('../../assets/search.png')} alt="" />
+              <div className={styles.searchBox}>
+                <img className={styles.searchIcon} src={require('../../assets/search.png')} alt="" />
               </div>
             </div>
           </form>
@@ -45,6 +44,21 @@ const HomePage = ({ playlist, title, handleFilter }) => {
       </div>
     </div>
   )
+}
+
+/**
+ * styles object..
+ */
+const styles = {
+  rootContainer: `  w-full pt-48 overflow-auto`,
+  header: `flex items-center fixed top-0 bg-fixed h-38 w-full align-middle`,
+  backIcon: `ml-5 sm:w-6 md:w-2/4 lg:w-10`,
+  headerTitle: `flex w-full text-white text-2xl sm:text-2xl md:text-3xl ml-3 lg:text-4xl`,
+  input: `h-1 bg-black border border-gray-700 rounded text-white sm:h-8 w-3/4 ml-10 md:w-full h-6 lg:w-full h-full`,
+  searchBox: `flex justify-start w-3/12 md:flex justify-center`,
+  searchIcon: `w-6 md:w-10 lg:w-10 flex justify-start`,
+  posterBox: `mx-2 pb-23`,
+  posterName: `text-white sm:text-1xl md:text-2xl lg:text-3xl`,
 }
 
 export default HomePage

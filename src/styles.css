@@ -1,0 +1,11 @@
+/* 
+*1.set the scrollbar width to 0
+*2.set the background to transparent
+* --@sarathantony
+*/
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+  
