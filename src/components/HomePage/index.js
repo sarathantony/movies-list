@@ -36,10 +36,10 @@ const HomePage = ({ playlist, title, handleFilter, handleBack, searchField }) =>
             <div className="w-6/12">
               <form onSubmit={e => e.preventDefault()}>
                 <div className="flex">
-                  <div className="flex w-9/12" style={{ border: '1px solid green' }}>
+                  <div className="flex w-9/12">
                     <input ref={searchField} className={styles.input} name="name" onChange={handleFilter} placeholder="Search.." />
                   </div>
-                  <div className={styles.searchBox} style={{ border: '1px solid green' }}>
+                  <div className={styles.searchBox}>
                     <img className={styles.searchIcon} src={require('../../assets/search.png')} alt="" />
                   </div>
                 </div>
