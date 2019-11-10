@@ -57,7 +57,7 @@ class HomePageContainer extends Component {
     const { data: { page }, currentPage } = this.props
     const { playlist, isSearching } = this.state
     const yOffset = Math.ceil(window.pageYOffset + window.innerHeight)
-    const docHeight = document.getElementById('rootContainer').clientHeight
+    const docHeight = document.getElementById('wrapper').clientHeight
 
     if ((yOffset >= docHeight) && (playlist && playlist.length < Number(page[`total-content-items`]))) {
       !isSearching && this.props.nextPage(`page` + (Number(currentPage) + 1))
