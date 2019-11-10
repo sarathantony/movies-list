@@ -18,7 +18,7 @@ Movie.propTypes = {
 }
 
 const wrapper = {
-  [`header-back-button`]: `w-4 sm:w-6`,
+  [`header-back-button`]: `w-4 opacity-100 hover:opacity-75 cursor-pointer sm:w-6`,
 
   [`header-title`]: `
     flex
@@ -46,7 +46,11 @@ const wrapper = {
 const HomePage = ({ playlist, title, handleFilter, handleBack, searchField }) => {
   return (
     <div id="wrapper">
-      {JSON.stringify(playlist) === '[]' && <div style={{ height: `${document.getElementById('wrapper').clientHeight}px`}} className="m-auto text-red-500 text-2xl"><p>No movie found..</p></div>}
+      {JSON.stringify(playlist) === '[]' &&
+        <div style={{ height: `${document.getElementById('wrapper').clientHeight}px` }} className="flex pt-58 justify-center">
+          <p className="text-red-400 text-1xl lg:text-2xl">No movie found..</p>
+        </div>
+      }
       {playlist && 
         <div className="w-full pt-58 overflow-auto">
 
@@ -56,24 +60,22 @@ const HomePage = ({ playlist, title, handleFilter, handleBack, searchField }) =>
                 <img className={wrapper['header-back-button']} src={require('../../assets/Back.png')} alt="" width="50%" />
               </div>
             </div>
-
-            {/* TITLE */}
             <div className="w-6/12">
               <p className={wrapper[`header-title`]} >{title}</p>
             </div>
 
             <div className="w-5/12">
-              <form onSubmit={e => e.preventDefault()}>
-                {/* INPUT */}
+              <form onSubmit={handleFilter}>
                 <div className="flex">
                   <div className="flex justify-end w-9/12">
                     <div className="w-3/4">
                       <input ref={searchField} className={wrapper[`search-input`]} name="name" onChange={handleFilter} placeholder="Search.." />
                     </div>
                   </div>
-                  {/* SEARCH-ICON */}
-                  <div className="flex justify-center w-3/12">
-                    <img className="w-6 md:w-8" src={require('../../assets/search.png')} alt="" />
+                  <div className="w-3/12">
+                    <div className="m-auto h-auto">
+                      <img className="w-5 opacity-100 hover:opacity-75 cursor-pointer mt-1 sm:w-6 md: ml-4" src={require('../../assets/search.png')} alt="" />
+                    </div>
                   </div>
                 </div>
               </form>

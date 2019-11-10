@@ -67,11 +67,20 @@ class HomePageContainer extends Component {
   handleFilter = (e) => {
     const pattern = e.target.value
     const { searchMovie, readPage } = this.props
+    const isSearching = pattern.length > 0 || false
 
     e.preventDefault()
 
+    this.setState(prevState => ({
+      ...prevState,
+      isSearching,
+    }))
+
     if (pattern.length === 0) readPage('page', 1)
 
+    /**
+     * performance optimization..
+     */
     pattern && pattern.length >= 3 && searchMovie(pattern)
   }
 
@@ -79,14 +88,10 @@ class HomePageContainer extends Component {
    * simulate back - button
    */
   handleBack = () => {
-    const { data: { page: { title, [`content-items`]: { content } } } } = this.props
-    this.searchField.current.value = null
+    const { readPage } = this.props
 
-    this.setState(prevState => ({
-      ...prevState,
-      playlist: content,
-      title,
-    }))
+    this.searchField.current.value = null
+    readPage('page', 1)
   }
 
   render () {

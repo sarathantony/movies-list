@@ -12,6 +12,27 @@ const reducer = (state = initialState, action) => {
 		case 'READ_PAGE_REQUEST':
       const { resource, params: { pageNumber } } = payload
       const resource_url = pages[pageNumber - 1][resource + pageNumber].page
+      if (pageNumber === 1) {
+        return {
+          ...newState,
+          playlist: {
+            ...newState.playlist,
+            page: {
+              ...newState.playlist.page,
+              title: resource_url.title,
+              [`page-num-requested`]: resource_url[`page-num-requested`],
+              [`total-content-items`]:resource_url[`total-content-items`],
+              [`page-size-requested`]:resource_url[`page-size-requested`],
+              [`page-size-returned`]: resource_url[`page-size-returned`],
+              [`content-items`]: {
+                ...newState.playlist.page[`content-items`],
+                content: resource_url['content-items'].content,
+              },
+            },          
+          },
+        }
+      }
+
 			return {
 				...newState,
 				playlist: {
@@ -31,11 +52,11 @@ const reducer = (state = initialState, action) => {
         },
       }
     case 'RESOURCE_SEARCH_REQUEST':
-      const result = []
+      let result = []
       pages && pages.map((item, index) =>
       (item[`page${index +1}`].page[`content-items`].content)).map(item =>
         item.map(itm =>
-          itm[`poster-image`] !== 'posterthatismissing.jpg' && itm.name.toLowerCase().includes('family') ? result.push(itm) : {}
+          itm[`poster-image`] !== 'posterthatismissing.jpg' && itm.name.toLowerCase().includes(payload) ? result.push(itm) : {}
         )
       )
 
@@ -45,7 +66,7 @@ const reducer = (state = initialState, action) => {
           ...newState.playlist,
           page: {
             ...newState.playlist.page,
-            [`page-num-requested`]: 1,
+            [`page-num-requested`]: result.length === 0 ? 0 : 1,
             [`page-size-returned`]: result && result.length,
             [`content-items`]: {
               ...newState.playlist.page[`content-items`],
