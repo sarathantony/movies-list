@@ -1,4 +1,5 @@
-export const page1 = {
+export const pages = [
+  { page1: {
     "page": {
       "title": "Romantic Comedy",
       "total-content-items" : "54",
@@ -90,9 +91,8 @@ export const page1 = {
         ]
       }
     }
-  }
-  
-  export const page2 = {
+  }},
+  {page2: {
     "page": {
       "title": "Romantic Comedy",
       "total-content-items" : "54",
@@ -184,9 +184,8 @@ export const page1 = {
         ]
       }
     }
-  }
-
-  export const page3 = {
+  }},
+  {page3: {
     "page": {
       "title": "Romantic Comedy",
       "total-content-items" : "54",
@@ -254,4 +253,5 @@ export const page1 = {
         ]
       }
     }
-  }
+  }}
+]

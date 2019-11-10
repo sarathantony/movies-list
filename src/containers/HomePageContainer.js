@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import HomePage from '../components/HomePage'
 import { connect } from 'react-redux'
-import { getPage } from '../store/actions'
+import { readResourceListRequest, resourceSearchRequest } from '../store/actions'
 import { PropTypes } from 'prop-types'
 
 class HomePageContainer extends Component {
@@ -60,24 +60,19 @@ class HomePageContainer extends Component {
     const docHeight = document.getElementById('wrapper').clientHeight
 
     if ((yOffset >= docHeight) && (playlist && playlist.length < Number(page[`total-content-items`]))) {
-      !isSearching && this.props.nextPage(`page` + (Number(currentPage) + 1))
+      !isSearching && this.props.readPage(`page`, (currentPage + 1))
     }
   }
 
   handleFilter = (e) => {
-    e.preventDefault()
     const pattern = e.target.value
-    const { data: { page: { [`content-items`]: { content } } } } = this.props
-    const isSearching = e.target.value.length > 0
+    const { searchMovie, readPage } = this.props
 
-    /**
-     * filter the immutable object so it won't effect the local state object. 
-     */
-    this.setState(prevState => ({
-      ...prevState,
-      isSearching,
-      playlist: content.filter(item => item.name.toLowerCase().includes(pattern.toLowerCase())),
-    }))
+    e.preventDefault()
+
+    if (pattern.length === 0) readPage('page', 1)
+
+    pattern && pattern.length >= 3 && searchMovie(pattern)
   }
 
   /**
@@ -104,11 +99,12 @@ class HomePageContainer extends Component {
 
 const mapStateToProps = state => ({
   data: state.playlist,
-  currentPage: state.playlist.page[`page-num-requested`] || null,
+  currentPage: Number(state.playlist.page[`page-num-requested`]) || null,
 })
 
 const mapDispatchToProps = dispatch => ({
-  nextPage: pageNumber => dispatch(getPage(pageNumber)),
+  readPage: (resource, pageNumber) => dispatch(readResourceListRequest(resource, { pageNumber })),
+  searchMovie: keyword => dispatch(resourceSearchRequest(keyword)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePageContainer)
