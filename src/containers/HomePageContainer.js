@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import HomePage from '../components/HomePage'
 import { connect } from 'react-redux'
-import { readResourceListRequest, resourceSearchRequest } from '../store/actions'
+import { readResourceListReadRequest, resourceSearchRequest } from '../store/actions'
 import { PropTypes } from 'prop-types'
 
 class HomePageContainer extends Component {
@@ -108,7 +108,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  readPage: (resource, pageNumber) => dispatch(readResourceListRequest(resource, { pageNumber })),
+  readPage: (resource, pageNumber) => dispatch(readResourceListReadRequest(resource, { pageNumber })),
   searchMovie: keyword => dispatch(resourceSearchRequest(keyword)),
 })
 

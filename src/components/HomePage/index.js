@@ -47,7 +47,7 @@ const HomePage = ({ playlist, title, handleFilter, handleBack, searchField }) =>
   return (
     <div id="wrapper">
       {JSON.stringify(playlist) === '[]' &&
-        <div style={{ height: `${document.getElementById('wrapper').clientHeight}px` }} className="flex pt-58 justify-center">
+        <div style={{ height: `${document.getElementById('wrapper').clientHeight}px` }} className="flex justify-center pt-58">
           <p className="text-red-400 text-1xl lg:text-2xl">No movie found..</p>
         </div>
       }
