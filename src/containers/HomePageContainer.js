@@ -87,11 +87,21 @@ class HomePageContainer extends Component {
   /**
    * simulate back - button
    */
-  handleBack = () => {
+  handleBack = (e) => {
     const { readPage } = this.props
+    const enableBack = this.searchField.current.value.length > 0
 
-    this.searchField.current.value = null
-    readPage('page', 1)
+    e.preventDefault()
+
+    if (enableBack) {
+      this.searchField.current.value = null
+      this.setState(prevState => ({
+        ...prevState,
+        isSearching: false,
+      }))
+  
+      readPage('page', 1)
+    }
   }
 
   render () {

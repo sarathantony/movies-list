@@ -48,7 +48,7 @@ const HomePage = ({ playlist, title, handleFilter, handleBack, searchField }) =>
     <div id="wrapper">
       {JSON.stringify(playlist) === '[]' &&
         <div style={{ height: `${document.getElementById('wrapper').clientHeight}px` }} className="flex justify-center pt-58">
-          <p className="text-red-400 text-1xl lg:text-2xl">No movie found..</p>
+          <p className="left-auto right-auto text-red-400 text-1xl lg:text-2xl">No movie found..</p>
         </div>
       }
       {playlist && 
@@ -56,7 +56,7 @@ const HomePage = ({ playlist, title, handleFilter, handleBack, searchField }) =>
 
           <div className="flex items-center fixed top-0 bg-fixed h-38 w-full align-middle" style={{ backgroundImage: `url(${require('../../assets/nav_bar.png')})` }}>
             <div className="w-1/12">
-              <div onClick={handleBack} className="flex justify-center">
+              <div className="flex justify-center" onClick={e => handleBack(e)}>
                 <img className={wrapper['header-back-button']} src={require('../../assets/Back.png')} alt="" width="50%" />
               </div>
             </div>
@@ -65,7 +65,7 @@ const HomePage = ({ playlist, title, handleFilter, handleBack, searchField }) =>
             </div>
 
             <div className="w-5/12">
-              <form onSubmit={handleFilter}>
+              <form onSubmit={e => e.preventDefault()}>
                 <div className="flex">
                   <div className="flex justify-end w-9/12">
                     <div className="w-3/4">
@@ -95,7 +95,6 @@ HomePage.propTypes = {
   playlist: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
   handleFilter: PropTypes.func,
-  handleBack: PropTypes.func,
 }
 
 
