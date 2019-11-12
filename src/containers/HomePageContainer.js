@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import HomePage from '../components/HomePage'
 import { connect } from 'react-redux'
-import { readResourceListReadRequest, resourceSearchRequest } from '../store/actions'
+import { resourceListReadRequest, resourceSearchRequest } from '../store/actions'
 import { PropTypes } from 'prop-types'
 
 class HomePageContainer extends Component {
@@ -35,12 +35,18 @@ class HomePageContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { data: { page: { title, [`content-items`]: { content } } } } = nextProps
+    const { playlist, isSearching } = this.state
 
-    if (nextProps.data.page[`page-num-requested`] !== this.props.data.page[`page-num-requested`]) {
+    if (!isSearching && nextProps.data.page[`page-num-requested`] !== this.props.data.page[`page-num-requested`]) {
+      this.setState(prevState => ({
+        ...prevState,
+        playlist: [...playlist, ...content],
+        title,
+      }))
+    } else {
       this.setState(prevState => ({
         ...prevState,
         playlist: content,
-        title,
       }))
     }
   }
@@ -118,7 +124,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  readPage: (resource, pageNumber) => dispatch(readResourceListReadRequest(resource, { pageNumber })),
+  readPage: (resource, pageNumber) => dispatch(resourceListReadRequest(resource, { pageNumber })),
   searchMovie: keyword => dispatch(resourceSearchRequest(keyword)),
 })
 

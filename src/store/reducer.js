@@ -9,34 +9,13 @@ const reducer = (state = initialState, action) => {
   const { type, payload } = action
 
 	switch(type) {
-		case 'READ_PAGE_REQUEST':
+		case 'READ_RESOURCE_REQUEST':
       const { resource, params: { pageNumber } } = payload
-      const resource_url = pages[pageNumber - 1][resource + pageNumber].page
-
-      if (pageNumber === 1) {
-        return {
-          ...newState,
-          playlist: initialState.playlist,
-        }
-      }
+      const resource_url = pages[pageNumber - 1][resource + pageNumber]
 
 			return {
 				...newState,
-				playlist: {
-          ...newState.playlist,
-          page: {
-            ...newState.playlist.page,
-            title: resource_url.title,
-            [`page-num-requested`]: resource_url[`page-num-requested`],
-            [`total-content-items`]:resource_url[`total-content-items`],
-            [`page-size-requested`]:resource_url[`page-size-requested`],
-            [`page-size-returned`]: resource_url[`page-size-returned`],
-            [`content-items`]: {
-              ...newState.playlist.page[`content-items`],
-              content: [...newState.playlist.page[`content-items`].content, ...resource_url['content-items'].content]
-            },
-          },          
-        },
+				playlist: resource_url,
       }
     case 'RESOURCE_SEARCH_REQUEST':
       let result = []

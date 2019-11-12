@@ -1,8 +1,8 @@
-export const READ_PAGE_REQUEST = 'READ_PAGE_REQUEST'
+export const READ_PAGE_REQUEST = 'READ_RESOURCE_REQUEST'
 
-export const readResourceListReadRequest = (resource, params) => {
+export const resourceListReadRequest = (resource, params) => {
   return {
-    type: 'READ_PAGE_REQUEST',
+    type: 'READ_RESOURCE_REQUEST',
     payload: { resource, params },
   }
 }
